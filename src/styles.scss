@@ -1,0 +1,117 @@
+@use '@angular/material' as mat;
+
+// ── Custom theme ────────────────────────────────────────────────────────────
+$primary-palette: mat.define-palette(mat.$indigo-palette, 400, 200, 600);
+$accent-palette:  mat.define-palette(mat.$cyan-palette, A200, A100, A400);
+$warn-palette:    mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-dark-theme((
+  color: (primary: $primary-palette, accent: $accent-palette, warn: $warn-palette),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+@include mat.all-component-themes($theme);
+@include mat.core();
+
+// ── CSS variables ───────────────────────────────────────────────────────────
+:root {
+  --bg:          #0d0e14;
+  --surface:     #15161e;
+  --surface-2:   #1c1d28;
+  --surface-3:   #22243200;
+  --border:      rgba(255,255,255,.07);
+  --text:        #e8e9f0;
+  --text-muted:  #6b6e88;
+  --accent-1:    #818cf8;  // indigo
+  --accent-2:    #38bdf8;  // sky
+  --accent-3:    #fbbf24;  // amber
+  --accent-4:    #4ade80;  // green
+  --danger:      #f87171;
+  --radius:      12px;
+  --radius-sm:   8px;
+  --shadow:      0 4px 24px rgba(0,0,0,.4);
+  --font-head:   'Syne', sans-serif;
+  --font-mono:   'DM Mono', monospace;
+}
+
+// ── Reset / base ────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-head);
+  font-size: 14px;
+  overflow: hidden;
+}
+
+// ── Scrollbar ───────────────────────────────────────────────────────────────
+::-webkit-scrollbar         { width: 5px; height: 5px; }
+::-webkit-scrollbar-track   { background: transparent; }
+::-webkit-scrollbar-thumb   { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+// ── Material overrides ──────────────────────────────────────────────────────
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  color: var(--text) !important;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--surface) !important;
+}
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: var(--surface-2);
+  --mdc-snackbar-supporting-text-color: var(--text);
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+.mat-mdc-select-panel {
+  background: var(--surface-2) !important;
+}
+
+.mat-mdc-option {
+  color: var(--text) !important;
+}
+
+// ── Drag placeholder ────────────────────────────────────────────────────────
+.cdk-drag-placeholder {
+  background: rgba(129,140,248,.08) !important;
+  border: 2px dashed var(--accent-1) !important;
+  border-radius: var(--radius-sm) !important;
+  opacity: 0.6;
+}
+
+.cdk-drag-animating {
+  transition: transform 200ms cubic-bezier(.2,0,0,1);
+}
+
+.cdk-drop-list-dragging .task-card:not(.cdk-drag-placeholder) {
+  transition: transform 200ms cubic-bezier(.2,0,0,1);
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 8px 40px rgba(0,0,0,.6) !important;
+  border-radius: var(--radius-sm) !important;
+  opacity: 0.95;
+}
+
+// ── Utility ─────────────────────────────────────────────────────────────────
+.flex        { display: flex; }
+.flex-col    { display: flex; flex-direction: column; }
+.items-center{ align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-8       { gap: 8px; }
+.gap-12      { gap: 12px; }
+.w-full      { width: 100%; }
+.truncate    { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
